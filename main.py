@@ -48,50 +48,54 @@ class sys:
     # contains primary functions of the bot, main actions used based on criteria are stored here.
     class funcs:
         def apply(job):
-            if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Senior") == -1:
-                if (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Develop") != -1) or (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Programmer") != -1):
-                    job.click()
+            job.find_elements_by_css_selector("button")[0].click()
+            time.sleep(2)
+            try:
+                test = globals.browser.find_elements_by_css_selector("a[data-tn-element=IAApplyButton]")[0].find_elements_by_css_selector("span")[0].get_attribute("innerText") != "Apply Now ✓"
+            except:
+                test = True
+            print(test)
+            try:
+                if test == True:
+                    globals.browser.find_elements_by_css_selector("a[data-tn-element=IAApplyButton]")[0].click()
                     time.sleep(1)
-                    try:
-                        test = globals.browser.find_elements_by_css_selector("a[data-tn-element=IAApplyButton]")[0].find_elements_by_css_selector("span")[0].get_attribute("innerText") != "Apply Now ✓"
-                    except:
-                        test = True
-                    if test == True:
-                        globals.browser.find_elements_by_css_selector("a[data-tn-element=IAApplyButton]")[0].click()
-                        time.sleep(1)
-                        globals.browser.find_elements_by_css_selector("label[for=input-q_cfcd208495d565ef66e7dff9f98764da-3]")[0].click()
-                        answer_two = "42"
-                        two_input = globals.browser.find_element_by_css_selector('input[id=input-q_c4ca4238a0b923820dcc509a6f75849b]')
-                        for letter in answer_two:
-                            print(letter)
-                            two_input.send_keys(letter)
-                            wait_time = random.randint(0, 500) / 10000
-                            time.sleep(wait_time)
-                        answer_three = "O(n m**2 2**n)"
-                        three_input = globals.browser.find_element_by_css_selector('input[id=input-q_c81e728d9d4c2f636f067f89cc14862c]')
-                        for letter in answer_three:
-                            print(letter)
-                            three_input.send_keys(letter)
-                            wait_time = random.randint(0, 500) / 10000
-                            time.sleep(wait_time)
-                        globals.browser.find_elements_by_css_selector("option[label=Other]")[0].click()
-                        globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
-                        time.sleep(2)
-                        globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
-                        time.sleep(2)
-                        globals.browser.find_elements_by_css_selector("div[id=write-cover-letter-selection-card]")[0].click()
-                        time.sleep(1)
-                        text = pytools.IO.getFile('message.txt')
-                        text_input = globals.browser.find_element_by_css_selector('textarea[id=coverletter-textarea]')
-                        for letter in text:
-                            print(letter)
-                            text_input.send_keys(letter)
-                            wait_time = random.randint(0, 500) / 10000
-                            time.sleep(wait_time)
-                        time.sleep(1)
-                        globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
-                        time.sleep(2)
-                        globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+                    globals.browser.find_elements_by_css_selector("label[for=input-q_cfcd208495d565ef66e7dff9f98764da-3]")[0].click()
+                    answer_two = "42"
+                    two_input = globals.browser.find_element_by_css_selector('input[id=input-q_c4ca4238a0b923820dcc509a6f75849b]')
+                    for letter in answer_two:
+                        print(letter)
+                        two_input.send_keys(letter)
+                        wait_time = random.randint(0, 500) / 10000
+                        time.sleep(wait_time)
+                    answer_three = "O(n m**2 2**n)"
+                    three_input = globals.browser.find_element_by_css_selector('input[id=input-q_c81e728d9d4c2f636f067f89cc14862c]')
+                    for letter in answer_three:
+                        print(letter)
+                        three_input.send_keys(letter)
+                        wait_time = random.randint(0, 500) / 10000
+                        time.sleep(wait_time)
+                    globals.browser.find_elements_by_css_selector("option[label=Other]")[0].click()
+                    globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+                    time.sleep(2)
+                    globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+                    time.sleep(2)
+                    globals.browser.find_elements_by_css_selector("div[id=write-cover-letter-selection-card]")[0].click()
+                    time.sleep(1)
+                    text = pytools.IO.getFile('message.txt')
+                    text_input = globals.browser.find_element_by_css_selector('textarea[id=coverletter-textarea]')
+                    text_input.clear()
+                    for letter in text:
+                        print(letter)
+                        text_input.send_keys(letter)
+                        wait_time = random.randint(0, 500) / 10000
+                        time.sleep(wait_time)
+                    time.sleep(1)
+                    globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+                    time.sleep(2)
+                    globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+            except:
+                pass
+            return 1
 
     # small functions for making my life easier
     class exe:
@@ -117,11 +121,20 @@ def main():
     sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
     i = 0
     while i < len(globals.browser.find_elements_by_css_selector("li[data-testid=jobListItem")):
+        print(i)
         sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
-        job = globals.browser.find_elements_by_css_selector("li[data-testid=jobListItem")[i]
         time.sleep(3)
-        try:
-            sys.apply(job)
-        except:
-            pass
+        job = globals.browser.find_elements_by_css_selector("li[data-testid=jobListItem")[i]
+        app = 0
+        while app != 1:
+            try:
+                print(job.find_elements_by_css_selector("button")[0].get_attribute("innerText"))
+                print(job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Senior") == -1)
+                print((job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Develop") != -1) or (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Programmer") != -1))
+                if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Senior") == -1:
+                    if (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Develop") != -1) or (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Programmer") != -1):
+                        app = sys.funcs.apply(job)
+            except:
+                i = i + 1  
+        i = i + 1
 
