@@ -4,6 +4,8 @@ This was not done blindly however, I sat in front as it was applying and interve
 
 Regarding my skills, you may find links to both my website and publications within my indeed resume. I have extremely strong skills in IT, and as you can see, I am an excellent problem solver.
 
+If you wish to see the project's source code: https://github.com/Ghostcrafter090/Indeed-Application-Bot
+
     I hope to speak to you soon, 
 
     Joshua J
