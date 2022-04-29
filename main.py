@@ -93,9 +93,10 @@ class sys:
                     globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
                     time.sleep(2)
                     globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+                    return 1
             except:
                 pass
-            return 1
+            return 0
 
     # small functions for making my life easier
     class exe:
@@ -109,6 +110,19 @@ class tools:
 
 # Main function
 def main():
+
+    nameCrit = {
+        "containsOr": [
+            "Develop",
+            "Programmer"
+        ],
+        "containsAnd": [],
+        "!contains": [
+            "Senior",
+            "Sales"
+        ]
+    }
+
     try:
         print("Username: " + sys.argv[1])
         globals.user = sys.argv[1]
@@ -124,17 +138,30 @@ def main():
         print(i)
         sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
         time.sleep(3)
-        job = globals.browser.find_elements_by_css_selector("li[data-testid=jobListItem")[i]
         app = 0
         while app != 1:
+            job = globals.browser.find_elements_by_css_selector("li[data-testid=jobListItem")[i]
+            containsAnd = True
+            containsOr = False
+            notContains = True
             try:
                 print(job.find_elements_by_css_selector("button")[0].get_attribute("innerText"))
-                print(job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Senior") == -1)
-                print((job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Develop") != -1) or (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Programmer") != -1))
-                if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Senior") == -1:
-                    if (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Develop") != -1) or (job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find("Programmer") != -1):
-                        app = sys.funcs.apply(job)
+                try:
+                    for crit in nameCrit["containsAnd"]:
+                        if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find(crit) == -1:
+                            containsAnd = False
+                except:
+                    pass
+                for crit in nameCrit["containsOr"]:
+                    if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find(crit) != -1:
+                        containsOr = True
+                for crit in nameCrit["!contains"]:
+                    if job.find_elements_by_css_selector("button")[0].get_attribute("innerText").find(crit) != -1:
+                        notContains = False
+                if (containsAnd) and (containsOr) and (notContains):
+                    app = sys.funcs.apply(job)
             except:
-                i = i + 1  
-        i = i + 1
+                sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
+                time.sleep(3)
+            i = i + 1
 
