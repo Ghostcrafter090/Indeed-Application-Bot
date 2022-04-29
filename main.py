@@ -1,4 +1,5 @@
 from jinja2 import Undefined
+from psutil import users
 from selenium import webdriver
 import random
 import time
@@ -9,6 +10,8 @@ import sys
 # Globals
 class globals:
     broswer = '' # allows access to browser driver at all levels of application
+    user = ""
+    passwd = ""
 
 # Sys class, contains main components
 class sys:
@@ -102,8 +105,14 @@ class tools:
 
 # Main function
 def main():
+    try:
+        print("Username: " + sys.argv[1])
+        globals.user = sys.argv[1]
+        globals.passwd = sys.argv[2]
+    except:
+        pass
     sys.start()
-    sys.signin(sys.argv[1], sys.argv[2])
+    sys.signin()
     tools.pause()
     sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
     i = 0
