@@ -1,0 +1,9 @@
+My name is Joshua Jones, and I am a 2nd year student at the Institute of Technology NSCC. I am looking to apply to a remote position somewhere within your company and have decided to do it in a rather interesting way!
+This position was auto applied to by a Selenium Python script I made. There are many positions within your company that look like they would make me quite happy. Because of this, and the fact that there was a lot, I wrote a script to auto apply to them for me.
+This was not done blindly however, I sat in front as it was applying and intervened whenever necessary (such as when it attempted to apply to a position that matched criteria, but was still not relevant to what I wanted in a position.)
+
+Regarding my skills, you may find links to both my website and publications within my indeed resume. I have extremely strong skills in IT, and as you can see, I am an excellent problem solver.
+
+    I hope to speak to you soon, 
+
+    Joshua J
