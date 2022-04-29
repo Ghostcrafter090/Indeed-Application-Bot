@@ -4,6 +4,7 @@ import random
 import time
 import os
 import pytools # note: pytools is my own python library, to use it, download it here: https://github.com/Ghostcrafter090/pytools
+import sys
 
 # Globals
 class globals:

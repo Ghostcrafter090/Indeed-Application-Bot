@@ -933,3 +933,19 @@ JavaScript error: resource://gre/modules/LoginManagerParent.jsm, line 136: TypeE
 console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
 JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
 [Parent 3048, IPC I/O Parent] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc:167
+1651246455420	geckodriver	INFO	Listening on 127.0.0.1:59559
+1651246458487	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59560" "-no-remote" "-profile" "C:\\Users\\joshp\\AppData\\Local\\Temp\\rust_mozprofileo46cnR"
+1651246459236	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\joshp\\AppData\\Local\\Temp\\rust_mozprofileo46cnR\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://localhost:59560/devtools/browser/7290b8ee-5c5a-4f90-b508-cb5cdebedb99
+1651246462035	Marionette	INFO	Listening on port 59572
+1651246462184	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1651246468992	Marionette	INFO	Stopped listening on port 59572
+console.warn: TopSitesFeed: Failed to fetch data from Contile server: NetworkError when attempting to fetch resource.
+JavaScript error: chrome://remote/content/marionette/cert.js, line 55: NS_ERROR_NOT_AVAILABLE: Component returned failure code: 0x80040111 (NS_ERROR_NOT_AVAILABLE) [nsICertOverrideService.setDisableAllSecurityChecksAndLetAttackersInterceptMyData]
+
+###!!! [Parent][PGPUParent] Error: RunMessage(msgname=PGPU::Msg_ShutdownVR) Channel closing: too late to send/recv, messages will be lost
+
+1651246474837	geckodriver	INFO	Listening on 127.0.0.1:59625
+1651246477911	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "59626" "-no-remote" "-profile" "C:\\Users\\joshp\\AppData\\Local\\Temp\\rust_mozprofilepZU5Rl"
+1651246478364	Marionette	INFO	Marionette enabled
