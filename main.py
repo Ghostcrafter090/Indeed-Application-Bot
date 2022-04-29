@@ -112,7 +112,7 @@ def main():
     except:
         pass
     sys.start()
-    sys.signin()
+    sys.signin(globals.user, globals.passwd)
     tools.pause()
     sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
     i = 0
