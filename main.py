@@ -94,7 +94,7 @@ class tools:
 
 def main():
     sys.start()
-    sys.signin("Joshpumpkinhead@icloud.com", "Josh4507?")
+    sys.signin("user", "password")
     tools.pause()
     sys.exe.goto("https://ca.indeed.com/cmp/Leap-Tools-Inc.-1/jobs?jk=562c7031db35aae8&start=0&clearPrefilter=1")
     i = 0
