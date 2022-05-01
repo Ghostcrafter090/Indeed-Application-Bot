@@ -143,6 +143,7 @@ class sys:
                                     else:
                                         dateArray = pytools.clock.getDateTime()
                                         globals.browser.execute_script('document.getElementById("' + box.get_attribute('id') + '").valueAsDate = new Date("' + answer.split("-")[0] + '-' + answer.split("-")[1] + '-' + answer.split("-")[2] + '")')
+                                    tools.pause()
                             elif box.tag_name == "fieldset":
                                 quest.find_elements_by_css_selector('label[for=' + quest.find_elements_by_css_selector('label')[0].get_attribute('for') + '-' + str(answer) + ']')[0].click()
 
