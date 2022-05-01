@@ -218,50 +218,59 @@ def main():
     sys.signin(globals.user, globals.passwd)
     tools.pause()
     sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
-    i = 0
-    while i < len(globals.browser.find_elements_by_css_selector("a")):
-        print(i)
-        sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
-        time.sleep(3)
-        app = 0
-        while app != 1:
-            fn = True
-            while fn and (i < len(globals.browser.find_elements_by_css_selector("a"))):
+    while True:
+        add = 0
+        i = 0
+        while i < len(globals.browser.find_elements_by_css_selector("a")):
+            print(i)
+            sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+            time.sleep(3)
+            app = 0
+            while app != 1:
+                fn = True
+                while fn and (i < len(globals.browser.find_elements_by_css_selector("a"))):
+                    try:
+                        jobf = globals.browser.find_elements_by_css_selector("a")[i]
+                        job = jobf.find_elements_by_css_selector("td[class=resultContent]")[0]
+                        fn = False
+                    except:
+                        i = i + 1
+                containsAnd = True
+                containsOr = False
+                notContains = True
                 try:
-                    jobf = globals.browser.find_elements_by_css_selector("a")[i]
-                    job = jobf.find_elements_by_css_selector("td[class=resultContent]")[0]
-                    fn = False
+                    print(job.find_elements_by_css_selector("h2")[0].get_attribute("innerText"))
+                    try:
+                        for crit in nameCrit["containsAnd"]:
+                            if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) == -1:
+                                containsAnd = False
+                    except:
+                        pass
+                    for crit in nameCrit["containsOr"]:
+                        if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) != -1:
+                            containsOr = True
+                    for crit in nameCrit["!contains"]:
+                        if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) != -1:
+                            notContains = False
+                    print("contains requirements: " + str(containsAnd))
+                    print("contains one opt requirement: " + str(containsOr))
+                    print("doesn't contain blacklist requirements: " + str(notContains))
+                    add = add + 1
+                    if (containsAnd) and (containsOr) and (notContains):
+                        app = sys.funcs.apply(jobf)
+                        add = 0
+                        sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+                        time.sleep(3)
+                    if add > 100:
+                        i = 0
+                        add = 0
+                        sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+                        time.sleep(3)
                 except:
-                    i = i + 1
-            containsAnd = True
-            containsOr = False
-            notContains = True
-            try:
-                print(job.find_elements_by_css_selector("h2")[0].get_attribute("innerText"))
-                try:
-                    for crit in nameCrit["containsAnd"]:
-                        if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) == -1:
-                            containsAnd = False
-                except:
-                    pass
-                for crit in nameCrit["containsOr"]:
-                    if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) != -1:
-                        containsOr = True
-                for crit in nameCrit["!contains"]:
-                    if job.find_elements_by_css_selector("h2")[0].get_attribute("innerText").find(crit) != -1:
-                        notContains = False
-                print("contains requirements: " + str(containsAnd))
-                print("contains one opt requirement: " + str(containsOr))
-                print("doesn't contain blacklist requirements: " + str(notContains))
-                if (containsAnd) and (containsOr) and (notContains):
-                    app = sys.funcs.apply(jobf)
+                    print("Unexpected main error:", sysn.exc_info())
                     sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
                     time.sleep(3)
-            except:
-                print("Unexpected main error:", sysn.exc_info())
-                sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
-                time.sleep(3)
-            i = i + 1
+                i = i + 1
 
 def pageAction():
     h1 = globals.browser.find_element_by_css_selector('h1').get_attribute('innerText')
