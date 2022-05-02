@@ -95,6 +95,8 @@ class sys:
                                     boxType = "input-text"
                                 if box.get_attribute('type') == "date":
                                     boxType = "input-date"
+                                if box.get_attribute('type') == "tel":
+                                    boxType = "input-tel"
                             elif box.tag_name == "fieldset":
                                     boxType = "fieldset"
                             quest = globals.browser.find_element_by_css_selector('div[id=q_' + str(n) + ']')
@@ -144,9 +146,16 @@ class sys:
                                         dateArray = pytools.clock.getDateTime()
                                         globals.browser.execute_script('document.getElementById("' + box.get_attribute('id') + '").valueAsDate = new Date("' + answer.split("-")[0] + '-' + answer.split("-")[1] + '-' + answer.split("-")[2] + '")')
                                     tools.pause()
+                                if box.get_attribute('type') == "tel":
+                                    for letter in answer:
+                                        print(letter)
+                                        box.send_keys(letter)
+                                        wait_time = random.randint(0, 500) / 10000
+                                        time.sleep(wait_time)
                             elif box.tag_name == "fieldset":
                                 quest.find_elements_by_css_selector('label[for=' + quest.find_elements_by_css_selector('label')[0].get_attribute('for') + '-' + str(answer) + ']')[0].click()
-
+                            elif box.tag_name == 'div':
+                                box.find_elements_by_css_selector('label[for=' + box.find_elements_by_css_selector('input')[int(answer)].get_attribute('id') + ']')[0].find_elements_by_css_selector('span')[0].click()
                     except:
                         print("Unexpected error:", sysn.exc_info())
                         yes = False
@@ -160,8 +169,8 @@ class sys:
                 globals.browser.find_elements_by_css_selector('div[role=radio]')[0].click()
                 globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
 
-            def coverLetter():
-                globals.browser.find_elements_by_css_selector("div[id=write-cover-letter-selection-card]")[0].click()
+            def coverLetter(f):
+                globals.browser.find_elements_by_css_selector("div[id=write-cover-letter-selection-card]")[f].click()
                 time.sleep(1)
                 text = pytools.IO.getFile('message.txt')
                 text_input = globals.browser.find_element_by_css_selector('textarea[id=coverletter-textarea]')
@@ -177,6 +186,9 @@ class sys:
             def addResume():
                 globals.browser.find_elements_by_css_selector('div[id=ia-IndeedResumeSelect-headerButton]')[0].click()
                 globals.browser.find_elements_by_css_selector("div[class=ia-pageButtonGroup]")[0].find_elements_by_css_selector("button")[1].click()
+
+            def yesImSmart():
+                globals.browser.find_elements_by_css_selector('div[class=ia-InterventionActionButtons]')[0].find_elements_by_css_selector('button')[0].click()
                         
 
     # small functions for making my life easier
@@ -283,7 +295,10 @@ def pageAction():
         sys.funcs.questions.jobExpo()
         out = 2
     elif h1 == 'Consider adding supporting documents':
-        sys.funcs.questions.coverLetter()
+        try:
+            sys.funcs.questions.coverLetter(0)
+        except:
+            sys.funcs.questions.coverLetter(1)
         out = 3
     elif h1.find('Questions from') != -1:
         sys.funcs.questions.answerQuestions()
@@ -294,5 +309,14 @@ def pageAction():
     elif h1.find('Add a resume') != -1:
         sys.funcs.questions.addResume()
         out = 6
+    elif h1.find('Do you have these qualifications') != -1:
+        sys.funcs.questions.yesImSmart()
+        out = 7
+    elif h1.find('Want to include any supporting documents?'):
+        try:
+            sys.funcs.questions.coverLetter(1)
+        except:
+            sys.funcs.questions.coverLetter(0)
+        out = 8
     return out
 
