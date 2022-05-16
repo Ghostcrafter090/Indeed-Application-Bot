@@ -212,6 +212,7 @@ def main():
             "Develop",
             "Programmer",
             "Software"
+            "Java "
         ],
         "containsAnd": [],
         "!contains": [
@@ -230,24 +231,26 @@ def main():
     sys.start()
     sys.signin(globals.user, globals.passwd)
     tools.pause()
-    sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+    sys.exe.goto("https://ca.indeed.com/jobs?q=Developer&l=Canada&jt=fulltime&sort=date&fromage=7&lang=en&taxo2=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
     while True:
         add = 0
         i = 0
         while i < len(globals.browser.find_elements_by_css_selector("a")):
             print(i)
-            sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+            sys.exe.goto("https://ca.indeed.com/jobs?q=Developer&l=Canada&jt=fulltime&sort=date&fromage=7&lang=en&taxo2=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
             time.sleep(3)
             app = 0
             while app != 1:
                 fn = True
                 while fn and (i < len(globals.browser.find_elements_by_css_selector("a"))):
+                    print(i)
                     try:
                         jobf = globals.browser.find_elements_by_css_selector("a")[i]
                         job = jobf.find_elements_by_css_selector("td[class=resultContent]")[0]
                         fn = False
                     except:
-                        i = i + 1
+                        pass
+                    i = i + 1
                 containsAnd = True
                 containsOr = False
                 notContains = True
@@ -272,16 +275,16 @@ def main():
                     if (containsAnd) and (containsOr) and (notContains):
                         app = sys.funcs.apply(jobf)
                         add = 0
-                        sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+                        sys.exe.goto("https://ca.indeed.com/jobs?q=Developer&l=Canada&jt=fulltime&sort=date&fromage=7&lang=en&taxo2=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
                         time.sleep(3)
                     if add > 100:
                         i = 0
                         add = 0
-                        sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+                        sys.exe.goto("https://ca.indeed.com/jobs?q=Developer&l=Canada&jt=fulltime&sort=date&fromage=7&lang=en&taxo2=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
                         time.sleep(3)
                 except:
                     print("Unexpected main error:", sysn.exc_info())
-                    sys.exe.goto("https://ca.indeed.com/jobs?q=Junior%20Developer&l=Canada&lang=en&taxo1=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
+                    sys.exe.goto("https://ca.indeed.com/jobs?q=Developer&l=Canada&jt=fulltime&sort=date&fromage=7&lang=en&taxo2=EHPW9&remotejob=032b3046-06a3-4876-8dfd-474eb5e7ed11")
                     time.sleep(3)
                 i = i + 1
 

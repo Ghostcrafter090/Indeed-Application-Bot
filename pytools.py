@@ -101,6 +101,30 @@ class IO:
         if error != 0:
             jsonData = error
         return jsonData
+
+    def saveBytes(path, jsonData):
+        error = 0
+        try:
+            file = open(path, "wb")
+            file.write(jsonData)
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        return error
+
+    def getBytes(path):
+        error = 0
+        try:
+            file = open(path, "rb")
+            jsonData = file.read()
+            file.close()
+        except:
+            print("Unexpected error:", sys.exc_info())
+            error = 1
+        if error != 0:
+            jsonData = error
+        return jsonData
     
     # DEPRECATED, used for performing console operations in python, such as writing text to a specific coord on the screen.
     class console:
@@ -821,6 +845,26 @@ class net:
             print("Unexpected error:", sys.exc_info())
             error = err
         return error
+
+    # Downloads files
+    def download(urlf, path, maxB):
+        i = 0
+        n = 0
+        local_filename = path
+        # NOTE the stream=True parameter below
+        with requests.get(urlf, stream=True) as r:
+            r.raise_for_status()
+            with open(local_filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192): 
+                    # If you have chunk encoded response uncomment if
+                    # and set chunk_size parameter to None.
+                    #if chunk: 
+                    i = i + 1
+                    f.write(chunk)
+                    percent = (n / maxB) * 100
+                    print("Download Progress: " + str(int(percent)) + "% ::: iter_bytepos: " + str(n) + " ::: writing file chunk " + str(i) + "...")
+                    n = n + 8192
+        return local_filename
 
     # get Json data from an API
     def getJsonAPI(url):
